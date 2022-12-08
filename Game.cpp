@@ -6,9 +6,9 @@
 Game::Game(const sf::IntRect& gameBounds, const sf::Font& font):
     _bounds(gameBounds), _font(font) {
         unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
-        _randomeEngine = std::default_random_engine(seed);
+        _randomEngine = std::default_random_engine(seed);
         _wordDatabase = std::make_unique<WordDatabase>(_randomEngine);
-        _playHistory = std::make_unique<PlayHistory>("..saves/save.dat");
+        _playHistory = std::make_unique<PlayHistory>("./saves/save.dat");
 
         _terminateGame = false;
         _activeInterface = nullptr;
@@ -32,7 +32,7 @@ Game::Game(const sf::IntRect& gameBounds, const sf::Font& font):
                 delete _activeInterface;
                 _activeInterface = new PuzzleWnd(_bounds, _font, _wordDatabase->getRandomWord());
             } else if (_activeOverlay->getResultState() == WndResultState::Quit) {
-                _terminateGame == true;
+                _terminateGame = true;
             }
         } else if (_activeInterface != nullptr) {
             _activeInterface->update(deltaTime);
@@ -45,7 +45,15 @@ Game::Game(const sf::IntRect& gameBounds, const sf::Font& font):
                 } else {
                     _playHistory->insertHistoryLoss();
                 }
-                _activeOverlay = new PostGameWnd(_bounds, _font, solution, guessGrid.isSolved(), rules.size(), _playHistory, guessGrid.getShareString());
+                _activeOverlay = new PostGameWnd(
+                    _bounds, 
+                    _font, 
+                    solution, 
+                    guessGrid.isSolved(), 
+                    rules.size(), 
+                    _playHistory, 
+                    guessGrid.getShareString()
+                );
             }
         }
     }

@@ -8,7 +8,7 @@ class Button {
 
         void draw(sf::RenderWindow& renderWindow) const;
 
-        int getActionID const;
+        int getActionID() const;
 
         void setHovering(const bool isHovering);
 
@@ -26,5 +26,5 @@ class Button {
         std::string _text;
         sf::RectangleShape _background;
         sf::Text _textVisual;
-        int colourID;
+        int _colourID;
 };
