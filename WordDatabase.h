@@ -24,4 +24,4 @@ class WordDatabase {
 
         // Loads the word list in and sorts in alphabetically
         void loadDatabase();
-}
+};

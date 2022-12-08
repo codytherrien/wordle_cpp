@@ -21,8 +21,10 @@ class Game {
     // Handles passing events on to the active interface.
     void handleMousePress(const sf::Vector2i& mousePosition, bool isLeft);
 
+    void handleMouseMove(const sf::Vector2i& mousePosition);
+
     // Handles passing the mouse moved event to the active interface.
-    void handleKeyInput(const sf::KeyboardKey key);
+    void handleKeyInput(const sf::Keyboard::Key key);
 
     // When true -> end game
     bool getGameCloseRequested();

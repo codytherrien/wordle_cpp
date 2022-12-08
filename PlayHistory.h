@@ -1,12 +1,13 @@
 #pragma once
 #include <vector>
+#include <string>
 
 class PlayHistory {
     public:
         PlayHistory(const std::string& saveFileName);
         virtual ~PlayHistory() = default;
 
-        void InsertHistory(const int countToIncrement);
+        void insertHistory(const int countToIncrement);
 
         void insertHistoryLoss();
 
@@ -34,4 +35,4 @@ class PlayHistory {
 
         // Initialises default dataset with all 0s
         void initialiseDefault();
-}
+};

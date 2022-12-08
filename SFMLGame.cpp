@@ -2,13 +2,15 @@
 
 #define WINDOW_WIDTH 1280
 #define WINDOW_HEIGHT 720
-#define FONT_FILE_PATH "../fonts/arial.ttf"
+#define FONT_FILE_PATH "./fonts/arial.ttf"
 
 SFMLGame::SFMLGame():
-    _window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Wordle by Cody Therrien", sf::Style::Titlebar | sf::Style::Close),
-    _font(loadFont()), _game(sf::IntRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT), _font) {
-
-    }
+    _window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), 
+        "Wordle by Cody Therrien", 
+        sf::Style::Titlebar | sf::Style::Close
+    ),
+    _font(loadFont()), 
+    _game(sf::IntRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT), _font) {}
 
 void SFMLGame::gameLoop() {
     sf::Clock clock;
@@ -17,13 +19,16 @@ void SFMLGame::gameLoop() {
         float deltaTime = elapsed.asSeconds();
         sf::Event event;
         if (_window.waitEvent(event)) {
-            if (event.type == st::Event::Closed) {
+            if (event.type == sf::Event::Closed) {
                 _window.close();
             } else if (event.type == sf::Event::MouseButtonPressed) {
-                _game.handleMousePress(sf::Vector2i(event.mouseButtome.x, event.mouseButton.y), event.mouseButton == sf::Mouse::Left);
+                _game.handleMousePress(
+                    sf::Vector2i(event.mouseButton.x, event.mouseButton.y), 
+                    event.mouseButton.button == sf::Mouse::Left
+                );
             } else if (event.type == sf::Event::MouseMoved) {
                 _game.handleMouseMove(sf::Vector2i(event.mouseMove.x, event.mouseMove.y));
-            } else if (event.type == sf::Evnet::KeyPressed) {
+            } else if (event.type == sf::Event::KeyPressed) {
                 _game.handleKeyInput(event.key.code);
             }
         }
@@ -42,7 +47,7 @@ void SFMLGame::gameLoop() {
 sf::Font SFMLGame::loadFont() {
     sf::Font font;
     if (!font.loadFromFile(FONT_FILE_PATH)) {
-        throw("Failed to load font.")
+        throw("Failed to load font.");
     }
 
     return font;

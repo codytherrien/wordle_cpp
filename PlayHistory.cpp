@@ -8,7 +8,7 @@ PlayHistory::PlayHistory(const std::string& saveFileName)
     loadFile();
 }
 
-void PlayHistory::InsertHistory(const int countToIncrement) {
+void PlayHistory::insertHistory(const int countToIncrement) {
     if (countToIncrement < 0 || countToIncrement >= _playHistory.size()) {
         std::cerr << "Error: Failed to insert " << countToIncrement << " into history." << std::endl;
         return;

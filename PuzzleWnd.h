@@ -7,8 +7,8 @@
 class PuzzleWnd : public WndInterface {
     public:
         // Initializes puzzle with a new puzzle
-        PuzzleWnd(const sf::IntRect& bounds, const sf::Font& font, const std::strng& solution);
-        virtual ~PuzzleWnd()
+        PuzzleWnd(const sf::IntRect& bounds, const sf::Font& font, const std::string& solution);
+        virtual ~PuzzleWnd();
 
         // Updates the current state of the window
         virtual void update(const float deltaTime) override;

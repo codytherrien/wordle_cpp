@@ -7,7 +7,7 @@ KeyboardWnd::KeyboardWnd(const sf::IntRect& bounds, const sf::Font& font)
     _actionID = -1;    
 }
 
-void KeybaordWnd::draw(sf::RenderWindow& renderWindow) const {
+void KeyboardWnd::draw(sf::RenderWindow& renderWindow) const {
     for (const auto& button : _buttons) {
         button.draw(renderWindow);
     }
@@ -15,15 +15,15 @@ void KeybaordWnd::draw(sf::RenderWindow& renderWindow) const {
 
 void KeyboardWnd::handleMousePress(const sf::Vector2i& mousePosition, bool isLeft) {
     for (auto& button : _buttons) {
-        if (button.isPositionInside(mousePoisition)) {
-            _actionID = button.getActionID;
+        if (button.isPositionInside(mousePosition)) {
+            _actionID = button.getActionID();
             break;
         }
     }
 }
 
 void KeyboardWnd::handleMouseMove(const sf::Vector2i& mousePosition) {
-    for (auto& : _buttons) {
+    for (auto& button : _buttons) {
         button.setHovering(button.isPositionInside(mousePosition));
     }
 }
@@ -73,7 +73,7 @@ void KeyboardWnd::initialiseButtons(const sf::Font& font) {
     int buttonHeight = 60;
 
     int midX = ((buttonWidth + 10) * (3 + 8) - 10) / 2;
-    int actualLeft = __bounds.left + _bounds.width / 2 - midX;
+    int actualLeft = _bounds.left + _bounds.width / 2 - midX;
 
     int posX = actualLeft + midX - ((buttonWidth + 10) * 10 - 10) / 2;
     int posY = _bounds.top + _bounds.height - (buttonHeight + 15) * 3;
@@ -89,37 +89,37 @@ void KeyboardWnd::initialiseButtons(const sf::Font& font) {
         ));
     }
 
-    posX = actualLeft + midX ((buttonWidth + 10) * 9 - 10) / 2;
+    posX = actualLeft + midX - ((buttonWidth + 10) * 9 - 10) / 2;
     posY += 10 + buttonHeight;
 
     // Middle Row A->L
-    for (; i < 19; i++ posX += buttonWidth + 10) {
+    for (; i < 19; i++, posX += buttonWidth + 10) {
         _buttons.emplace_back(Button(
             sf::IntRect(posX, posY, buttonWidth, buttonHeight),
             buttonText.at(i),
-            static_cast<int>(button.at(i).at(0)),
+            static_cast<int>(buttonText.at(i).at(0)),
             font
         ));
     }
 
-    postX = actualLeft
+    posX = actualLeft;
     posY += 10 + buttonHeight;
 
     // Special case for "Check"
     _buttons.emplace_back(Button(
         sf::IntRect(posX, posY, buttonWidth, buttonHeight),
         buttonText.at(i),
-        static_cast<int>(buttonText.at(i).at(0)),
+        1,
         font
-    ))
+    ));
     i++;
     posX += buttonWidth * 3 + 10;
 
     //Bottom Row Z->M
-    for (;, i < bottonText.size(); i++, posX += buttonWidth + 10) {
+    for (; i < buttonText.size(); i++, posX += buttonWidth + 10) {
         _buttons.emplace_back(Button(
             sf::IntRect(posX, posY, buttonWidth, buttonHeight),
-            button.Text.at(i),
+            buttonText.at(i),
             static_cast<int>(buttonText.at(i).at(0)),
             font
         ));

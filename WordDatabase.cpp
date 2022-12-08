@@ -2,6 +2,7 @@
 #include <fstream>
 #include <iostream>
 #include <string>
+#include <algorithm>
 
 WordDatabase::WordDatabase(std::default_random_engine& randomEngine) : _randomEngine(randomEngine) {
     loadDatabase();
@@ -16,7 +17,7 @@ std::string WordDatabase::getRandomWord() const {
 }
 
 void WordDatabase::loadDatabase() {
-    std::ifstream file("../words.txt");
+    std::ifstream file("./words.txt");
     if (!file.is_open()) {
         std::cerr << "Error: Failed to load words..." << std::endl;
         return;
